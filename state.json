@@ -1,0 +1,78 @@
+{
+    "StartAt": "ValidateInput",
+    "States": {
+      "ValidateInput": {
+        "Type": "Pass",
+        "Next": "ParalellSteps"
+      },
+      "ParalellSteps": {
+        "Type": "Parallel",
+        "Branches": [
+          {
+            "StartAt": "CreateIndividuals",
+            "States": {
+              "CreateIndividuals": 
+                {
+                  "Type": "Map",
+                  "ItemsPath": "$.items",
+                  "MaxConcurrency": 3,
+                  "Iterator": {
+                    "StartAt": "CreateIndividual",
+                    "States": {
+                      "CreateIndividual":{
+                        "Type": "Pass",
+                        "End": true
+                       }
+                      }
+                   },
+                   "End": true
+                }
+            }
+          },
+          {
+            "StartAt": "CreateBusiness",
+            "States": {
+              "CreateBusiness": {
+                "Type": "Pass",
+                "End": true
+              }
+            }
+          },
+          {
+            "StartAt": "CreateAccounts",
+            "States": {
+              "CreateAccounts": 
+                {
+                  "Type": "Map",
+                  "ItemsPath": "$.items",
+                  "MaxConcurrency": 3,
+                  "Iterator": {
+                    "StartAt": "CreateAccount",
+                    "States": {
+                      "CreateAccount":{
+                        "Type": "Pass",
+                        "End": true
+                       }
+                      }
+                   },
+                   "End": true
+                }
+            }
+          }
+        ],
+        "Next": "CreateSignerAccountRelationship"
+      },
+      "CreateSignerAccountRelationship": {
+        "Type": "Pass",
+        "Next": "UpdateRaAndEnrollment"
+      },
+      "UpdateRaAndEnrollment": {
+        "Type": "Pass",
+        "Next": "InitiateAsyncBOBCreation"
+      },
+      "InitiateAsyncBOBCreation": {
+        "Type": "Pass",
+        "End": true
+      }
+    }
+  }
