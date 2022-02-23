@@ -1,0 +1,30 @@
+{
+    "application" : {
+      "applicants" : {
+        "applicant" : [
+          {
+            "firstName" : "Evin",
+            "lastName" : "Marrette",
+            "roleType" : "Signer"
+          },
+          {
+            "firstName" : "Ajimol",
+            "lastName" : "Thomas",
+            "roleType" : "BC"
+          }
+        ],
+        "business" : {
+          "legalBusinessName" : "Test LLC",
+          "taxId" : "12333"
+        }
+      },
+      "products":[
+        {
+          "productType" : "BAS"
+        },
+        {
+          "productType" : "BUC"
+        }
+      ]
+    }
+  }
